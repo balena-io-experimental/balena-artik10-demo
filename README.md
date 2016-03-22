@@ -1,8 +1,12 @@
 # resin-artik5-ledmatrix
 Resin.io application to showcase an artik-5 controlling a LED-Matrix and a PIR sensor
 
-## Configuration vie ENV Vars
+## Configuration
 
-#### PIR
+* #### PIR
 
-* `PIR_PIN` => which Artik Digital PIN the PIR __*OUT*__ pin is connected
+  * Set the `Time` encoder to __*min*__
+  * Set the `Sensitive` encoder to __*min*__
+
+  * ###### ENV config
+    * `PIR_PIN` => which Artik Digital PIN the PIR __*OUT*__ pin is connected
