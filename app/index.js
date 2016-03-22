@@ -5,7 +5,7 @@
   pir.mode('in');
 
   pir.on('rise', function () {       // …or `'fall'`, or `'both'`
-      console.log("Movement detected! PIN value is "+pin.value());
+      console.log("Movement detected! PIN value is "+pir.value());
   });
 
 })();
