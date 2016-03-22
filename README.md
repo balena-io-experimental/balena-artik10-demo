@@ -10,4 +10,4 @@ Resin.io application to showcase an artik-5 controlling a LED-Matrix and a PIR s
   * Set the `Retrigger Setting` jumper to __*H*__
 
   * ###### ENV config
-    * `PIR_PIN` => __*int*__ ( defaults to `121` which is J27 pin 2 ) which Artik Digital PIN the PIR __*OUT*__ pin is connected 
+    * `PIR_PIN` => __*int*__ ( defaults to `121` => J27 pin 2 ) which Artik Digital PIN the PIR __*OUT*__ pin is connected 
