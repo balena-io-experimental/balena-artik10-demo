@@ -32,6 +32,7 @@
     "strict": true
   },
   "dependencies": {
+    "node-rest-client": "^1.8.0",
     "pi-pins": "^1.0.2"
   }
 }
