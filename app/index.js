@@ -5,8 +5,14 @@
   const bearer = "Bearer "+process.env.SAMI_DEVICE_TOKEN || null;
   const device_id = process.env.SAMI_DEVICE_ID|| null;
   const Client = require('node-rest-client').Client;
+
+  // since pi-pins just wraps sysfs, works flawlessy on the artik too
   const pir = require("pi-pins").connect(parseInt(process.env.PIR_PIN) || 121);
+
+  // this should become a separate module as soon as we implement
+  // more functionalities
   const sami = new Client();
+
   pir.mode('in');
 
   pir.on('rise', function () {       // …or `'fall'`, or `'both'`
@@ -20,6 +26,10 @@
       });
   });
 
+  /**
+  * Pushes a SAMI message to a given device bucket
+  * @param   {Function} cb
+  */
   function push2sami (cb) {
     if (bearer && device_id) {
       let args= {
