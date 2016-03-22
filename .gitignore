@@ -31,3 +31,11 @@ node_modules
 
 # Optional REPL history
 .node_repl_history
+
+# Fuck DS_Store
+.DS_Store
+
+# Bower
+.bower-cache
+.bower-registry
+app/src/public/bower_components
