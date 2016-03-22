@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
   libssh-4 \
   build-essential \
   git \
+  curl \
   bind9 \
   bridge-utils \
   connman \
