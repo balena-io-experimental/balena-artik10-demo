@@ -1,10 +1,10 @@
 (function() {
   'use strict';
 
-  const pin121 = require("pi-pins").connect(121);
-  pin121.mode('in');
+  const pir = require("pi-pins").connect(process.env.PIR_PIN || 121);
+  pir.mode('in');
 
-  pin121.on('rise', function () {       // …or `'fall'`, or `'both'`
+  pir.on('rise', function () {       // …or `'fall'`, or `'both'`
       console.log("Movement detected!");
   });
 
