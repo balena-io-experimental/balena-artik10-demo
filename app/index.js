@@ -32,6 +32,7 @@
             "ts": new Date().valueOf(),
             "type": "message",
             "data": {
+                "uuid": process.env.RESIN_UUID,
                 "event": "movement detected"
             }
         }
