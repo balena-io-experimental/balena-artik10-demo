@@ -5,7 +5,7 @@ Resin.io application to showcase an artik-5 controlling a LED-Matrix and a PIR s
 
 * #### PIR
 ![pir](https://learn.adafruit.com/system/assets/assets/000/013/829/medium800/proximity_PIRbackLabeled.jpg?1390935476)
-  * Set the `Deelay Time Adjust` encoder to __*min*__
+  * Set the `Delay Time Adjust` encoder to __*min*__
   * Set the `Sensitivity Adjust` encoder to __*min*__
   * Set the `Retrigger Setting` jumper to __*L*__
 
