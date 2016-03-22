@@ -1,0 +1,34 @@
+{
+  "name": "resin-artik-ledmatrix",
+  "version": "0.0.1",
+  "description": "Resin.io application to showcase an artik-5 controlling a LED-Matrix and a PIR sensor",
+  "main": "index.js",
+  "scripts": {
+    "test": "cd src && node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fwrgit/resin-artik5-ledmatrix.git"
+  },
+  "keywords": [
+    "artik",
+    "5",
+    "samsung",
+    "resin",
+    "io",
+    "fwr",
+    "artik-5",
+    "led",
+    "matrix"
+  ],
+  "author": "Carlo Maria Curinga",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/fwrgit/resin-artik5-ledmatrix/issues"
+  },
+  "homepage": "https://github.com/fwrgit/resin-artik5-ledmatrix#readme",
+  "jshintConfig": {
+    "esnext": true,
+    "strict": true
+  }
+}
