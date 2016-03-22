@@ -27,7 +27,7 @@ RUN systemctl disable connman
 COPY ./app/assets/bind /etc/bind
 
 # Install nodejs
-curl -sL https://deb.nodesource.com/setup_5.x | bash - && apt-get install -y nodejs && RUN npm config set unsafe-perm true
+RUN curl -sL https://deb.nodesource.com/setup_5.x | bash - && apt-get install -y nodejs && RUN npm config set unsafe-perm true
 
 # Save source folder
 RUN printf "%s\n" "${PWD##}" > SOURCEFOLDER
