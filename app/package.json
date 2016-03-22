@@ -30,5 +30,8 @@
   "jshintConfig": {
     "esnext": true,
     "strict": true
+  },
+  "dependencies": {
+    "pi-pins": "^1.0.2"
   }
 }
