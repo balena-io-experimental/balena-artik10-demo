@@ -14,6 +14,7 @@ Resin.io application to showcase an artik-5 controlling a LED-Matrix and a PIR s
 
 * #### SAMI
   * You need a Samsung account and a device created in the [SAMI](https://portal.samsungsami.io) dashboard
+  
   * ###### ENV config
     * `SAMI_URL` => __*string*__ ( defaults to `https://api.samsungsami.io/v1.1/messages` ) the SAMI endpoint
     * `SAMI_DEVICE_ID` => __*string*__ the Device ID set in the SAMI dashboard
