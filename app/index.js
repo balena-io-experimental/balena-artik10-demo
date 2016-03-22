@@ -31,7 +31,9 @@
             "sdid": device_id,
             "ts": new Date().valueOf(),
             "type": "message",
-            "data": "Movement"
+            "data": {
+                "event": "movement detected"
+            }
         }
       };
       sami.post(samiURL, args, function(data, response) {
