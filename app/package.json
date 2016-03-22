@@ -1,6 +1,6 @@
 {
   "name": "resin-artik-ledmatrix",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Resin.io application to showcase an artik-5 controlling a LED-Matrix and a PIR sensor",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,9 @@
     "fwr",
     "artik-5",
     "led",
-    "matrix"
+    "matrix",
+    "pir",
+    "sensor"
   ],
   "author": "Carlo Maria Curinga",
   "license": "Apache-2.0",

@@ -11,7 +11,7 @@
 
   pir.on('rise', function () {       // …or `'fall'`, or `'both'`
       console.log("Movement detected! PIN value is "+pir.value());
-      push2sami(pir.value(),function pushed(err,response) {
+      push2sami(function pushed(err,response) {
         if (!err) {
           console.log("Movement detection reported to SAMI");
         } else {
@@ -20,7 +20,7 @@
       });
   });
 
-  function push2sami (data,cb) {
+  function push2sami (cb) {
     if (bearer && device_id) {
       let args= {
         headers: {
@@ -32,7 +32,7 @@
             "ts": new Date().valueOf(),
             "type": "message",
             "data": {
-                "movement": data
+                "event": "movement detected"
             }
         }
       };
