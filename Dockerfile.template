@@ -21,6 +21,8 @@ RUN apt-get update && apt-get install -y \
   usbutils \
   wireless-tools \
   inetutils-ping \
+  fbi \
+
   && rm -rf /var/lib/apt/lists/*
 
 RUN systemctl disable connman
