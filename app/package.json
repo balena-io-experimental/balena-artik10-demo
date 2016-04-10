@@ -20,7 +20,6 @@
     "artik-5",
     "led",
     "matrix",
-    "pir",
     "sensor"
   ],
   "author": "Carlo Maria Curinga",
@@ -34,7 +33,7 @@
     "strict": true
   },
   "dependencies": {
-    "node-rest-client": "^1.8.0",
-    "pi-pins": "^1.0.2"
+    "express": "^4.13.4",
+    "node-sami": "^0.2.0"
   }
 }

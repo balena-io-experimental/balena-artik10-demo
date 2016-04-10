@@ -3,33 +3,26 @@ FROM resin/armv7hf-systemd:jessie
 # Enable systemd
 ENV INITSYSTEM on
 
-# Install apt deps
-RUN apt-get update && apt-get install -y \
-  apt-utils \
-  libsmbclient \
-  libssh-4 \
-  build-essential \
-  git \
-  curl \
-  bind9 \
-  bridge-utils \
-  connman \
-  iptables \
-  libdbus-1-dev \
-  libexpat-dev \
-  net-tools \
-  usbutils \
-  wireless-tools \
-  inetutils-ping \
-  fbi \
+# Install Node
+ENV NODE_VERSION 5.10.0
 
-  && rm -rf /var/lib/apt/lists/*
-
-RUN systemctl disable connman
-COPY ./app/assets/bind /etc/bind
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
 # Install nodejs
-RUN curl -sL https://deb.nodesource.com/setup_5.x | bash - && apt-get install -y nodejs && npm config set unsafe-perm true
+RUN curl -SLO "http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-armv7l.tar.gz" \
+	&& echo "3f7524d3db60175c2323bb2a0a13ad1ca7d47d4ede6f42834b6b8425be70e0a2  node-v5.10.0-linux-armv7l.tar.gz" | sha256sum -c - \
+	&& tar -xzf "node-v$NODE_VERSION-linux-armv7l.tar.gz" -C /usr/local --strip-components=1 \
+	&& rm "node-v$NODE_VERSION-linux-armv7l.tar.gz" \
+	&& npm config set unsafe-perm true -g --unsafe-perm \
+	&& rm -rf /tmp/*
+
+# Install apt deps
+RUN apt-get update && apt-get install -y \
+  git \
+  usbutils \
+  inetutils-ping \
+  fbi \
+  && rm -rf /var/lib/apt/lists/*
 
 # Save source folder
 RUN printf "%s\n" "${PWD##}" > SOURCEFOLDER
@@ -43,10 +36,9 @@ COPY "$SOURCEFOLDER/app/package.json" ./
 # Install NodeJS dependencies via NPM
 RUN JOBS=MAX npm i --unsafe-perm --production && npm cache clean
 
+# Start app
+CMD ["bash", "/usr/src/app/start.sh"]
+
 # Move app to filesystem
 COPY "$SOURCEFOLDER/app" ./
 
-VOLUME /var/lib/connman
-
-# Start app
-CMD ["bash", "/usr/src/app/start.sh"]
