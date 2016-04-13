@@ -15,7 +15,7 @@
       token: device_token
   });
 
-  display_image("/usr/src/app/assets/screen1.jpg");
+  display_image("/usr/src/app/assets/screen2.jpg");
 
   // Probe the proximity sensor here and then execute the gesture_actions function #TODO
   /*
