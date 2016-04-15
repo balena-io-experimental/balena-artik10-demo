@@ -3,10 +3,14 @@ FROM resin/armv7hf-systemd:jessie
 # Enable systemd
 ENV INITSYSTEM on
 
+# Install apt deps
+RUN apt-get update && apt-get install -y \
+  git \
+  curl \
+  && rm -rf /var/lib/apt/lists/*
+
 # Install Node
 ENV NODE_VERSION 5.10.0
-
-RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
 # Install nodejs
 RUN curl -SLO "http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-armv7l.tar.gz" \
@@ -15,14 +19,6 @@ RUN curl -SLO "http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-a
 	&& rm "node-v$NODE_VERSION-linux-armv7l.tar.gz" \
 	&& npm config set unsafe-perm true -g --unsafe-perm \
 	&& rm -rf /tmp/*
-
-# Install apt deps
-RUN apt-get update && apt-get install -y \
-  git \
-  usbutils \
-  inetutils-ping \
-  fbi \
-  && rm -rf /var/lib/apt/lists/*
 
 # Save source folder
 RUN printf "%s\n" "${PWD##}" > SOURCEFOLDER
@@ -40,5 +36,11 @@ RUN JOBS=MAX npm i --unsafe-perm --production && npm cache clean
 CMD ["bash", "/usr/src/app/start.sh"]
 
 # Move app to filesystem
-COPY "$SOURCEFOLDER/app" ./
+COPY "$SOURCEFOLDER/app/assets" ./assets/
 
+# Copy the start.sh file
+
+COPY "$SOURCEFOLDER/app/start.sh" ./
+
+# Move app to filesystem
+COPY "$SOURCEFOLDER/app/index.js" ./

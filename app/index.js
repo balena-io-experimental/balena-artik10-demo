@@ -5,6 +5,8 @@
   const device_token = process.env.SAMI_DEVICE_TOKEN || null;
   const device_id = process.env.SAMI_DEVICE_ID|| null;
   const sensor_threshold = process.env.SENSOR_THRESHOLD || 1300;
+  const poll_interval = process.env.POLL_INTERVAL || 500; // Defaults to 0.5 second
+  const screen_timeout = process.env.SCREEN_TIMEOUT || 500; // Defaults to 0.5 seconds
   var Sami = require('node-sami');
   var fs = require('fs');
   const exec = require('child_process').exec;
@@ -17,16 +19,17 @@
       token: device_token
   });
 
-  var sensor_active_image = "/usr/src/app/assets/vulcan_hand_sign.jpg";
-  var startup_image = "/usr/src/app/assets/screen2.jpg";
-  display_image(startup_image);
+  var sensor_active_image = "/usr/src/app/assets/sensor-touch.raw";
+
+  var startup_image = "/usr/src/app/assets/screen2.raw";
   enable_proximity_sensor();
+
+  display_image_raw(startup_image);
 
   /**
   * Function that enables proximity sensor
   */
   function enable_proximity_sensor() {
-    const poll_interval = 1 * 1000;
     setInterval(function() {
       if (read_adc0() > sensor_threshold) {
         if (last_detection == false) {
@@ -37,9 +40,9 @@
         if (last_detection == true){
           setTimeout(function() {
             if (read_adc0() < sensor_threshold){
-              display_image(startup_image);
+              display_image_raw(startup_image);
             }
-          },4*1000);
+          },screen_timeout);
         }
         last_detection = false;
       }
@@ -50,7 +53,7 @@
   * Actions to execute on proximity.
   */
   function proximity_actions() {
-    display_image(sensor_active_image);
+    display_image_raw(sensor_active_image);
     push2sami();
   }
 
@@ -107,6 +110,18 @@
   */
   function display_image(image){
     exec('fbi -T 2 '+ image, (error, stdout, stderr) => {
+      if (error) {
+        console.log(error);
+      }
+    });
+  }
+
+  /**
+  * Display raw image on screen fb0
+  * @param {string} image
+  */
+  function display_image_raw(image){
+    exec('cat '+ image + ' > /dev/fb0', (error, stdout, stderr) => {
       if (error) {
         console.log(error);
       }
