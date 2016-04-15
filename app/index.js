@@ -4,34 +4,53 @@
   const samiURL = process.env.SAMI_URL || "https://api.samsungsami.io/v1.1";
   const device_token = process.env.SAMI_DEVICE_TOKEN || null;
   const device_id = process.env.SAMI_DEVICE_ID|| null;
+  const sensor_threshold = process.env.SENSOR_THRESHOLD || 1300;
   var Sami = require('node-sami');
   var fs = require('fs');
   const exec = require('child_process').exec;
   var express = require('express');
   var app = express();
+  var last_detection = false;
 
   const sami = new Sami({
       baseUrl: samiURL,
       token: device_token
   });
 
-  display_image("/usr/src/app/assets/screen2.jpg");
+  var sensor_active_image = "/usr/src/app/assets/vulcan_hand_sign.jpg";
+  var startup_image = "/usr/src/app/assets/screen2.jpg";
+  display_image(startup_image);
+  enable_proximity_sensor();
 
-  // Probe the proximity sensor here and then execute the gesture_actions function #TODO
-  /*
-  const poll_interval = 2 * 1000;
-  setInterval(function() {
-    if (read_adc0() > 2500) { // Set the voltage here properly based on actual sensor tests.
-      gesture_actions();
-    }
-  }, poll_interval);
-*/
+  /**
+  * Function that enables proximity sensor
+  */
+  function enable_proximity_sensor() {
+    const poll_interval = 1 * 1000;
+    setInterval(function() {
+      if (read_adc0() > sensor_threshold) {
+        if (last_detection == false) {
+          proximity_actions();
+        }
+        last_detection = true;
+      }else{
+        if (last_detection == true){
+          setTimeout(function() {
+            if (read_adc0() < sensor_threshold){
+              display_image(startup_image);
+            }
+          },4*1000);
+        }
+        last_detection = false;
+      }
+    }, poll_interval);
+  }
+
   /**
   * Actions to execute on proximity.
   */
-  function gesture_actions() {
-    display_image("/usr/src/app/assets/vulcan_hand_sign.jpg");
-    setTimeout(function() { display_image("/usr/src/app/assets/screen2.jpg");},5*1000);
+  function proximity_actions() {
+    display_image(sensor_active_image);
     push2sami();
   }
 
@@ -106,14 +125,14 @@
   });
 
   app.get('/activate',function (req, res) {
-    gesture_actions();
+    proximity_actions();
+    last_detection = true;
     res.send('OK!');
   });
 
   app.get('/adc0',function (req, res) {
     res.send(read_adc0().toString());
   });
-
 
   app.listen(80, function () {
     console.log('All Set!');
