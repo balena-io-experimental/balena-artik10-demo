@@ -4,9 +4,9 @@
   const samiURL = process.env.SAMI_URL || "https://api.samsungsami.io/v1.1";
   const device_token = process.env.SAMI_DEVICE_TOKEN || null;
   const device_id = process.env.SAMI_DEVICE_ID|| null;
-  const sensor_threshold = process.env.SENSOR_THRESHOLD || 1300;
-  const poll_interval = process.env.POLL_INTERVAL || 500; // Defaults to 0.5 second
-  const screen_timeout = process.env.SCREEN_TIMEOUT || 500; // Defaults to 0.5 seconds
+  const sensor_threshold = process.env.SENSOR_THRESHOLD || 2500;
+  const poll_interval = process.env.POLL_INTERVAL || 250; // Defaults to 0.25 second
+  const screen_timeout = process.env.SCREEN_TIMEOUT || 250; // Defaults to 0.25 seconds
   var Sami = require('node-sami');
   var fs = require('fs');
   const exec = require('child_process').exec;
