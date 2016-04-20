@@ -13,19 +13,20 @@
   var express = require('express');
   var app = express();
   var last_detection = false;
-
+  var image_selector = 0;
   const sami = new Sami({
       baseUrl: samiURL,
       token: device_token
   });
-
-  var sensor_active_image = "/usr/src/app/assets/sensor-touch.raw";
+  var sensor_active_images = ["/usr/src/app/assets/resin.raw",
+                              "/usr/src/app/assets/artik-blue.raw",
+                              "/usr/src/app/assets/snappin.raw",
+                              "/usr/src/app/assets/artik-green.raw"];
 
   var startup_image = "/usr/src/app/assets/screen2.raw";
   enable_proximity_sensor();
 
   display_image_raw(startup_image);
-
   /**
   * Function that enables proximity sensor
   */
@@ -37,13 +38,15 @@
         }
         last_detection = true;
       }else{
-        if (last_detection == true){
+        // The following code restores the screen after the given timeout
+        /*if (last_detection == true){
           setTimeout(function() {
             if (read_adc0() < sensor_threshold){
               display_image_raw(startup_image);
             }
           },screen_timeout);
-        }
+
+        }*/
         last_detection = false;
       }
     }, poll_interval);
@@ -53,7 +56,11 @@
   * Actions to execute on proximity.
   */
   function proximity_actions() {
-    display_image_raw(sensor_active_image);
+    display_image_raw(sensor_active_images[image_selector]);
+    image_selector++;
+    if (image_selector >= sensor_active_images.length) {
+      image_selector=0;
+    }
     push2sami();
   }
 
