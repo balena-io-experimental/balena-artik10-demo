@@ -23,14 +23,14 @@
                               "/usr/src/app/assets/snappin.raw",
                               "/usr/src/app/assets/artik-green.raw"];
 
-  var startup_image = "/usr/src/app/assets/screen2.raw";
+  display_image_raw("/usr/src/app/assets/screen1.raw");
   enable_proximity_sensor();
 
-  display_image_raw(startup_image);
   /**
   * Function that enables proximity sensor
   */
   function enable_proximity_sensor() {
+    display_image_raw("/usr/src/app/assets/screen2.raw")
     setInterval(function() {
       if (read_adc0() > sensor_threshold) {
         if (last_detection == false) {
