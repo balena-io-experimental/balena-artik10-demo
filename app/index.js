@@ -6,7 +6,6 @@
   const device_id = process.env.SAMI_DEVICE_ID|| null;
   const sensor_threshold = process.env.SENSOR_THRESHOLD || 2500;
   const poll_interval = process.env.POLL_INTERVAL || 250; // Defaults to 0.25 second
-  const screen_timeout = process.env.SCREEN_TIMEOUT || 250; // Defaults to 0.25 seconds
   const device_name = process.env.DEVICE_NAME || "wild-fire";
 
   var Sami = require('node-sami');
