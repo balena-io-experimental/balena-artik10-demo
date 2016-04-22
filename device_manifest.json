@@ -1,0 +1,33 @@
+{
+"fields": [
+  {
+    "name": "sensor",
+    "type": "CUSTOM",
+    "valueClass": "String",
+    "isCollection": false,
+    "tags": []
+  },
+  {
+    "name": "event",
+    "type": "CUSTOM",
+    "valueClass": "String",
+    "isCollection": false,
+    "tags": []
+  },
+  {
+    "name": "uuid",
+    "type": "CUSTOM",
+    "valueClass": "String",
+    "isCollection": false,
+    "tags": []
+  },
+  {
+    "name": "name",
+    "type": "CUSTOM",
+    "valueClass": "String",
+    "isCollection": false,
+    "tags": []
+  }
+],
+"messageFormat": "json"
+}
