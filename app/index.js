@@ -18,19 +18,19 @@
       baseUrl: samiURL,
       token: device_token
   });
-  var sensor_active_images = ["/usr/src/app/assets/resin.raw",
-                              "/usr/src/app/assets/artik-blue.raw",
-                              "/usr/src/app/assets/snappin.raw",
-                              "/usr/src/app/assets/artik-green.raw"];
+  var sensor_active_images = ["/usr/src/app/assets/artik-blue.raw",
+                              "/usr/src/app/assets/resin.raw",
+                              "/usr/src/app/assets/artik-green.raw",
+                              "/usr/src/app/assets/snappin.raw"];
 
-  display_image_raw("/usr/src/app/assets/screen1.raw");
+  display_image_raw("/usr/src/app/assets/red.raw");
   enable_proximity_sensor();
 
   /**
   * Function that enables proximity sensor
   */
   function enable_proximity_sensor() {
-    display_image_raw("/usr/src/app/assets/screen2.raw")
+    display_image_raw("/usr/src/app/assets/green.raw")
     setInterval(function() {
       if (read_adc0() > sensor_threshold) {
         if (last_detection == false) {
@@ -38,15 +38,6 @@
         }
         last_detection = true;
       }else{
-        // The following code restores the screen after the given timeout
-        /*if (last_detection == true){
-          setTimeout(function() {
-            if (read_adc0() < sensor_threshold){
-              display_image_raw(startup_image);
-            }
-          },screen_timeout);
-
-        }*/
         last_detection = false;
       }
     }, poll_interval);
@@ -147,10 +138,15 @@
   });
 
   app.get('/activate',function (req, res) {
+    enable_proximity_sensor();
+    res.send('Activated!');
+  });
+
+  app.get('/trigger', function (req, res) {
     proximity_actions();
     last_detection = true;
-    res.send('OK!');
-  });
+    res.send("Triggered!");
+  })
 
   app.get('/adc0',function (req, res) {
     res.send(read_adc0().toString());

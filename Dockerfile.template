@@ -1,12 +1,7 @@
-FROM resin/armv7hf-systemd:jessie
+FROM resin/armhf-fedora:22
 
-# Enable systemd
-ENV INITSYSTEM on
-
-# Install apt deps
-RUN apt-get update && apt-get install -y \
-  curl \
-  && rm -rf /var/lib/apt/lists/*
+# Install yum dependencies
+RUN rpm --rebuilddb && yum install -y tar && yum clean all && rm -rf /var/lib/rpm
 
 # Install Node
 ENV NODE_VERSION 5.10.0
@@ -38,7 +33,6 @@ CMD ["bash", "/usr/src/app/start.sh"]
 COPY "$SOURCEFOLDER/app/assets" ./assets/
 
 # Copy the start.sh file
-
 COPY "$SOURCEFOLDER/app/start.sh" ./
 
 # Move app to filesystem
