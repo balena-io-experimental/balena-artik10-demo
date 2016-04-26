@@ -19,10 +19,11 @@
       baseUrl: samiURL,
       token: device_token
   });
-  var sensor_active_images = ["/usr/src/app/assets/artik-blue.raw",
-                              "/usr/src/app/assets/resin.raw",
-                              "/usr/src/app/assets/artik-green.raw",
-                              "/usr/src/app/assets/snappin.raw"];
+  var sensor_active_images = ["/usr/src/app/assets/bernie.raw",
+                              "/usr/src/app/assets/donald.raw",
+                              "/usr/src/app/assets/hillary.raw",
+                              "/usr/src/app/assets/john.raw",
+                              "/usr/src/app/assets/ted.raw"];
 
   display_image_raw("/usr/src/app/assets/red.raw");
   //enable_proximity_sensor();
