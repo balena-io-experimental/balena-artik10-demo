@@ -25,8 +25,8 @@
                               "/usr/src/app/assets/john.raw",
                               "/usr/src/app/assets/ted.raw"];
 
-  display_image_raw("/usr/src/app/assets/red.raw");
-  // enable_proximity_sensor();
+  //display_image_raw("/usr/src/app/assets/red.raw");
+  enable_proximity_sensor();
 
   /**
   * Function that enables proximity sensor
