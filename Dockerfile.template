@@ -1,18 +1,7 @@
-FROM resin/armhf-fedora:22
+FROM resin/%%RESIN_MACHINE_NAME%%-fedora-node:6.3.1-slim
 
 # Install yum dependencies
 RUN rpm --rebuilddb && yum install -y tar && yum clean all && rm -rf /var/lib/rpm
-
-# Install Node
-ENV NODE_VERSION 5.10.0
-
-# Install nodejs
-RUN curl -SLO "http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-armv7l.tar.gz" \
-	&& echo "3f7524d3db60175c2323bb2a0a13ad1ca7d47d4ede6f42834b6b8425be70e0a2  node-v5.10.0-linux-armv7l.tar.gz" | sha256sum -c - \
-	&& tar -xzf "node-v$NODE_VERSION-linux-armv7l.tar.gz" -C /usr/local --strip-components=1 \
-	&& rm "node-v$NODE_VERSION-linux-armv7l.tar.gz" \
-	&& npm config set unsafe-perm true -g --unsafe-perm \
-	&& rm -rf /tmp/*
 
 # Save source folder
 RUN printf "%s\n" "${PWD##}" > SOURCEFOLDER
