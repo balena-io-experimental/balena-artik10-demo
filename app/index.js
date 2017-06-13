@@ -6,7 +6,7 @@
   const device_id = process.env.SAMI_DEVICE_ID|| null;
   const sensor_threshold = process.env.SENSOR_THRESHOLD || 2500;
   const poll_interval = process.env.POLL_INTERVAL || 250; // Defaults to 0.25 second
-  const device_name = process.env.DEVICE_NAME || "wild-fire";
+  const device_name = process.env.RESIN_DEVICE_NAME_AT_INIT || "wild-fire";
 
   var Sami = require('node-sami');
   var fs = require('fs');
@@ -19,11 +19,9 @@
       baseUrl: samiURL,
       token: device_token
   });
-  var sensor_active_images = ["/usr/src/app/assets/bernie.raw",
-                              "/usr/src/app/assets/donald.raw",
-                              "/usr/src/app/assets/hillary.raw",
-                              "/usr/src/app/assets/john.raw",
-                              "/usr/src/app/assets/ted.raw"];
+  var sensor_active_images = ["/usr/src/app/assets/resin.raw",
+                              "/usr/src/app/assets/artik.raw",
+                              "/usr/src/app/assets/samsung.raw"];
 
   //display_image_raw("/usr/src/app/assets/red.raw");
   enable_proximity_sensor();
